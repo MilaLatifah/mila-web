@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banana Roll</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: mistyrose;
+    }
+    header {
+      background:navajowhite;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: black;
+      cursor: pointer;
+    }
+    .hero {
+      padding: 20px;
+      text-align: center;
+    }
+    .hero img {
+      width: 200px;
+    }
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    .products {
+      flex: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .product-card {
+      background:RosyBrown;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      width: 180px;
+    }
+    .product-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+    .product-card button {
+      margin: 5px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      background: #ccc;
+      cursor: pointer;
+    }
+    #cartSection {
+      flex: 1;
+      background: pink;
+      padding: 15px;
+      margin-left: 20px;
+      border-radius: 10px;
+      min-width: 250px;
+      max-width: 350px;
+      height: fit-content;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      background-color: NavajoWhite;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-top: 2px solid #e0c200;
+    }
+    footer .follow-us {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 0.5rem;
+    }
+    footer .social-icons a img {
+      width: 30px;
+      vertical-align: middle;
+      border-radius: 4px;
+    }
+    #aboutSection {
+      background: #fff7cc;
+      padding: 15px;
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+      }
+      #cartSection {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Banana Roll</strong></div>
+    <nav>
+      <a onclick="scrollToProducts()">Produk</a>
+      <a onclick="toggleSection('aboutSection')">Tentang</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>BANANA ROLL</h1>
+    <p>Rasakan Keseruan Pisang Dalam Setiap Gulungan!</p>
+    <img src="https://i.pinimg.com/736x/e3/32/ec/e332ec3ecf95ce58564208293d09dcc5.jpg" alt="Banana Roll" />
+  </section>
+
+  <section class="main-content">
+    <div class="products" id="productsSection">
+      <div class="product-card">
+        <img src="https://i.pinimg.com/736x/d2/9a/79/d29a79c53a1ab388f10f0413724e7a54.jpg" alt="Strawberry" />
+        <p>Strawberry</p>
+        <p>Rp 13.000</p>
+        <button onclick="addToCart('Strawberry')">Tambah ke Keranjang</button>
+      </div>
+      <div class="product-card">
+        <img src="https://i.pinimg.com/736x/c5/a3/a0/c5a3a05ddca24f234dc3515641258042.jpg" alt="Coklat" />
+        <p>Coklat</p>
+        <p>Rp 13.000</p>
+        <button onclick="addToCart('Coklat')">Tambah ke Keranjang</button>
+      </div>
+      <div class="product-card">
+        <img src="https://i.pinimg.com/736x/23/d2/ad/23d2ade085b20f7bda02b36a167afb21.jpg" alt="Mix" />
+        <p>Mix</p>
+        <p>Rp 13.000</p>
+        <button onclick="addToCart('Mix')">Tambah ke Keranjang</button>
+      </div>
+    </div>
+
+    <div id="cartSection">
+      <h2>Keranjang Belanja</h2>
+      <div id="cartItems"><p>Keranjang kosong.</p></div>
+      <h3 id="cartTotal"></h3>
+      <div id="whatsappButton" style="display: none; margin-top: 15px;">
+        <a id="waLink" href="https://wa.me/6281280160800" target="_blank" rel="noopener"
+           style="display: inline-block; background: #25D366; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none;">
+          Hubungi via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="aboutSection">
+    <h2>Tentang Kami</h2>
+    <p>
+      Banana Roll adalah camilan lezat berbahan dasar pisang yang digulung roti dengan berbagai rasa menarik seperti Strawberry, Coklat, dan Mix.
+      Kami berkomitmen untuk menghadirkan cita rasa terbaik dengan bahan berkualitas, cocok untuk semua kalangan dan momen spesial.
+    </p>
+  </section>
+
+  <footer>
+    <div class="follow-us">Ikuti Kami</div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/banana_roll29" target="_blank" rel="noopener">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" />
+      </a>
+      <a href="https://www.facebook.com/share/15LeSy4DdB/" target="_blank" rel="noopener">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Facebook" />
+      </a>
+      <a href="https://www.tiktok.com/@banana_roll_" target="_blank" rel="noopener">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" alt="TikTok" />
+      </a>
+      <a href="https://youtube.com/@bananaroll-x3h" target="_blank" rel="noopener">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174883.png" alt="YouTube" />
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const cart = {};
+    const prices = {
+      'Strawberry': 13000,
+      'Coklat': 13000,
+      'Mix': 13000
+    };
+
+    function addToCart(name) {
+      if (!cart[name]) {
+        cart[name] = { quantity: 0, price: prices[name] };
+      }
+      cart[name].quantity++;
+      updateCart();
+    }
+
+    function removeFromCart(name) {
+      delete cart[name];
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      const whatsappButton = document.getElementById('whatsappButton');
+      const waLink = document.getElementById('waLink');
+
+      cartItems.innerHTML = '';
+      let total = 0;
+      let message = 'Pesanan Saya:';
+
+      if (Object.keys(cart).length === 0) {
+        cartItems.innerHTML = '<p>Keranjang kosong.</p>';
+        cartTotal.innerText = '';
+        whatsappButton.style.display = 'none';
+        return;
+      }
+
+      for (let name in cart) {
+        const item = cart[name];
+        const sub = item.quantity * item.price;
+        total += sub;
+        cartItems.innerHTML += `
+          <p><strong>${name}</strong>: ${item.quantity} x Rp ${item.price.toLocaleString()} = Rp ${sub.toLocaleString()}
+          <button onclick="removeFromCart('${name}')">Hapus</button></p>`;
+        message += `- ${name} (${item.quantity} x Rp ${item.price.toLocaleString()}) = Rp ${sub.toLocaleString()}`;
+      }
+
+      cartTotal.innerText = 'Total Harga: Rp ' + total.toLocaleString();
+      message += `*Total: Rp ${total.toLocaleString()}*`;
+
+      waLink.href = `https://wa.me/6281280160800?text=${encodeURIComponent(message)}`;
+      whatsappButton.style.display = 'block';
+    }
+
+    function scrollToProducts() {
+      document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleSection(id) {
+      const sections = ['aboutSection'];
+      sections.forEach(sec => {
+        if (sec !== id) document.getElementById(sec).style.display = 'none';
+      });
+
+      const el = document.getElementById(id);
+      const isVisible = window.getComputedStyle(el).display !== 'none';
+      el.style.display = isVisible ? 'none' : 'block';
+      if (!isVisible) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
