@@ -109,6 +109,15 @@
         margin-top: 20px;
       }
     }
+    .qty-button {
+      padding: 3px 8px;
+      margin: 0 3px;
+      background: #eee;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -208,6 +217,21 @@
       updateCart();
     }
 
+    function increaseQty(name) {
+      cart[name].quantity++;
+      updateCart();
+    }
+
+    function decreaseQty(name) {
+      if (cart[name].quantity > 1) {
+        cart[name].quantity--;
+      } else {
+        removeFromCart(name);
+        return;
+      }
+      updateCart();
+    }
+
     function updateCart() {
       const cartItems = document.getElementById('cartItems');
       const cartTotal = document.getElementById('cartTotal');
@@ -216,7 +240,7 @@
 
       cartItems.innerHTML = '';
       let total = 0;
-      let message = 'Pesanan Saya:';
+      let message = 'Pesanan Saya:\n';
 
       if (Object.keys(cart).length === 0) {
         cartItems.innerHTML = '<p>Keranjang kosong.</p>';
@@ -230,13 +254,20 @@
         const sub = item.quantity * item.price;
         total += sub;
         cartItems.innerHTML += `
-          <p><strong>${name}</strong>: ${item.quantity} x Rp ${item.price.toLocaleString()} = Rp ${sub.toLocaleString()}
-          <button onclick="removeFromCart('${name}')">Hapus</button></p>`;
-        message += `- ${name} (${item.quantity} x Rp ${item.price.toLocaleString()}) = Rp ${sub.toLocaleString()}`;
+          <p>
+            <strong>${name}</strong>: 
+            <button class="qty-button" onclick="decreaseQty('${name}')">−</button>
+            ${item.quantity}
+            <button class="qty-button" onclick="increaseQty('${name}')">+</button>
+            x Rp ${item.price.toLocaleString()} = Rp ${sub.toLocaleString()}
+            <button onclick="removeFromCart('${name}')">Hapus</button>
+          </p>
+        `;
+        message += `- ${name} (${item.quantity} x Rp ${item.price.toLocaleString()}) = Rp ${sub.toLocaleString()}\n`;
       }
 
       cartTotal.innerText = 'Total Harga: Rp ' + total.toLocaleString();
-      message += `*Total: Rp ${total.toLocaleString()}*`;
+      message += `\nTotal: Rp ${total.toLocaleString()}`;
 
       waLink.href = `https://wa.me/6281280160800?text=${encodeURIComponent(message)}`;
       whatsappButton.style.display = 'block';
